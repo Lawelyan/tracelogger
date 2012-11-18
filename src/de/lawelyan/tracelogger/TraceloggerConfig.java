@@ -143,14 +143,14 @@ public class TraceloggerConfig {
             p.setProperty(CONFIG_TARGET_PREFIX + "1", "www.google.de");
             p.setProperty(CONFIG_ONLINE, (ONLINE) ? "true" : "false");
             try {
-                CONFIG_FILE.mkdirs();
+                new File(CONFIG_FILE.getAbsolutePath()).getParentFile().mkdirs();
                 p.storeToXML(new FileOutputStream(CONFIG_FILE), "ownIP prüft nur auf die ersten zahlen \nlogPath gibt den Speicherort an\ntarget1...targetn Ziel IP-Adressen zum Tracen");
             } catch (Exception e2) {
                 Logg.err("Speichern der " + CONFIG_FILE.getName() + " nicht möglich, Pfad: " + CONFIG_FILE.getAbsolutePath());
             }
 
         }
-        ArrayList<String> a = new ArrayList<>();
+        ArrayList<String> a = new ArrayList<String>();
         Enumeration<?> enu = p.propertyNames();
         String key;
         while (enu.hasMoreElements()) {

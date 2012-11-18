@@ -6,6 +6,8 @@ package de.lawelyan.tracelogger;
 
 import de.lawelyan.tracelogger.gui.MainWindow;
 import java.awt.Desktop;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import org.omg.CORBA.Environment;
 
@@ -18,16 +20,52 @@ public class Tracert {
     private static String trace;
 
     protected static String[] getHops(String target) {
-
+        String[] ret = new String[0];
         String result = "";
-        Process p;
-        ArrayList<String> hops = new ArrayList<>();
+        Process p=new Process() {
+
+            @Override
+            public OutputStream getOutputStream() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public InputStream getInputStream() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public InputStream getErrorStream() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public int waitFor() throws InterruptedException {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public int exitValue() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void destroy() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        };
+        ArrayList<String> hops = new ArrayList<String>();
         trace = "";
         try {
 
-            
-            
-            p = Runtime.getRuntime().exec("cmd /c tracert.exe " + target);
+            if (System.getProperty("os.name").toLowerCase().contains("nux")) {
+                p = Runtime.getRuntime().exec("traceroute " + target);
+            } else if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                p = Runtime.getRuntime().exec("cmd /c tracert.exe " + target);
+            } else {
+                return ret;               
+            }
+
             int read = p.getInputStream().read();
             while (read != -1) {
                 if (!TraceloggerConfig.isOnline()) {
@@ -50,7 +88,7 @@ public class Tracert {
             }
         } catch (Exception e) {
         }
-        String ret[] = new String[hops.size()];
+        ret = new String[hops.size()];
         ret = hops.toArray(ret);
         return ret;
     }
@@ -72,6 +110,8 @@ public class Tracert {
             }
             elem = elem.replace('[', ' ').trim();
             elem = elem.replace(']', ' ').trim();
+            elem = elem.replace('(', ' ').trim();
+            elem = elem.replace(')', ' ').trim();
 
             if (isIpAdress(elem)) {
                 return elem;
@@ -81,7 +121,7 @@ public class Tracert {
     }
 
     private static boolean isIpAdress(String elem) {
-        ArrayList<Integer> ip = new ArrayList<>();
+        ArrayList<Integer> ip = new ArrayList<Integer>();
         try {
             for (String e : elem.split("\\.")) {
                 ip.add(new Integer(e));
