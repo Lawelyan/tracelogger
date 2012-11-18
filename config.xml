@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>ownIP prüft nur auf die ersten zahlen 
+logPath gibt den Speicherort an
+target1...targetn Ziel IP-Adressen zum Tracen</comment>
+<entry key="Online">true</entry>
+<entry key="Trace Log Pfad">/home/ralf/NetBeansProjects/TraceLogger/Logs/</entry>
+<entry key="Eigene IP Maske"></entry>
+<entry key="Target1">www.google.de</entry>
+</properties>
