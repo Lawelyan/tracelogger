@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>ownIP prüft nur auf die ersten zahlen 
+logPath gibt den Speicherort an
+target1...targetn Ziel IP-Adressen zum Tracen</comment>
+<entry key="target1"/>
+<entry key="Eigene IP Maske">172.16</entry>
+<entry key="Trace Log Pfad">%USERPROFILE%/traceLog/</entry>
+</properties>
